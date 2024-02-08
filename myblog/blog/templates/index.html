@@ -3,48 +3,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
-<style>
-    * {
-        color: white;
-        font-family: 'Montserrat';
-    }
+<link href="/static/style.css" rel="stylesheet">
 
-    html {
-        background-image: url(/static/background.jpg);
-        background-size: cover;
-    }
-
-    h1 {
-        font-size: 99px;
-        margin-bottom: 0px;
-    }
-
-    .header {
-        text-align: center;
-    }
-
-    .container {
-        margin-left: 19%;
-        margin-right: 19%;
-    }
-
-    .blue {
-        color: #31aed4;
-        text-shadow: 0px 1px 10px #32aed4, 1px 1px 10px #32aed4;
-    }
-
-    .red {
-        color: #f51ec6;
-        text-shadow: 0px 1px 10px #f52ec6, 1px 1px 10px #f52ec6;
-    }
-
-    .post {
-        padding: 9px;
-        margin-top: 29px;
-        border-radius: 9px;
-        background-color: #0000005c;
-    }
-</style>
 
 <div class="container">
 
@@ -58,6 +18,20 @@
         <h2>{{ post.heading }}</h2>
         <p>{{ post.text }}</p>
         <i>{{ post.created_at }} by {{ post.author }}</i>
+    </div>
+
+    {% for comment in post.comment_set.all %}
+    <div class="comment">
+        <p>{{ comment.text }}</p>
+    </div>
+    {% endfor %}
+
+    <div class="comment">
+        <form action="/new_comment">
+            <input name="post_id" hidden value="{{ post.id }}"/>
+            <input name="text" />
+            <button>Отправить</button>
+        </form>
     </div>
     {% endfor %}
 
